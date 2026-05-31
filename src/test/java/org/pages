@@ -1,0 +1,46 @@
+package org.pages;
+import org.base.*;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+
+public class Page extends baseclass{
+	public Page() {
+		this.driver=driver;
+       PageFactory.initElements(driver, this);
+       
+}
+	
+	
+	@FindBy(id="user-name")
+	private WebElement user;
+	@FindBy(id="password")
+	private WebElement  pass;
+	@FindBy(id="login-button")
+	private WebElement button;
+	@FindBy(id="add-to-cart-sauce-labs-bolt-t-shirt")
+	private WebElement addToCartBtn;
+	@FindBy(className ="shopping_cart_link")
+	private WebElement shoppingCart;
+	public WebElement getShoppingCart() {
+		return shoppingCart;
+	}
+
+	public WebElement getAddToCartBtn() {
+		return addToCartBtn;
+	}
+
+	public void getButton() {
+         button.click();
+	}
+	public void getUser(String name) {
+	      user.sendKeys(name);
+	}
+	
+	public void getPass(String password) {
+		pass.sendKeys(password);
+	}
+	
+}
