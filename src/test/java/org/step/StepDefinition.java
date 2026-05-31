@@ -17,28 +17,30 @@ public class StepDefinition extends baseclass {
         launchURL("https://www.saucedemo.com/");
     }
 
-    @When("user logs in with the correct credentials")
+     @When("user logs in with the correct credentials")
     public void user_logs_in_with_the_correct_credentials() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         
-        WebElement username = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user-name")));
-        username.sendKeys("standard_user");
+        page.getUser("standard_user");
+        page.getPass("secret_sauce");
+        page.getButton();
         
-        WebElement password = findid("password");
-        password.sendKeys("secret_sauce");
-        
-        WebElement loginBtn = findid("login-button");
-        loginBtn.click();
     }
 
     @When("adds items to the cart and clicks checkout")
     public void adds_items_to_the_cart_and_clicks_checkout() {
+    	try {
+    	    Alert alert = driver.switchTo().alert();
+    	    alert.accept(); // clicks OK
+    	} catch (NoAlertPresentException e) {
+    	    System.out.println("No alert present.");
+    	}
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         
-        WebElement addToCartBtn = wait.until(ExpectedConditions.elementToBeClickable(By.id("add-to-cart-sauce-labs-bolt-t-shirt")));
+        WebElement addToCartBtn = wait.until(ExpectedConditions.elementToBeClickable(page.getAddToCartBtn()));
         addToCartBtn.click();
         
-        WebElement cartLink = wait.until(ExpectedConditions.elementToBeClickable(By.className("shopping_cart_link")));
+        WebElement cartLink = wait.until(ExpectedConditions.elementToBeClickable(page.getAddToCartBtn()));
         cartLink.click();
         
         WebElement checkoutBtn = wait.until(ExpectedConditions.elementToBeClickable(By.id("checkout")));
